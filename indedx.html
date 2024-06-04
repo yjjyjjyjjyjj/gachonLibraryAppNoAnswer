@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/grids-responsive-min.css" />
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    </head>
+    <body>
+    <div class="pure-g">
+        <div class="pure-sm-1-6">
+            <label>학번을 입력하세요.</label>
+        </div>
+        <div class="pure-sm-4-6">
+            <input class="pure-input-1" id="studentId" type="text" placeholder="학번 입력.">
+        </div>
+        <div class="pure-sm-1-6">
+            <button id="generate">QR생성</button>
+        </div>
+    </div>
+    <div class="pure-g">
+        <div class="pure-sm-1-1" id="qrcode">
+        </div>
+    </div>
+    <script type="text/javascript">
+        $('#generate').on('click',function () {
+            let studentId = $('#studentId').val()
+            let nd = new Date();
+            let year = nd.getFullYear();
+            let month = (("00"+(nd.getMonth()+1).toString()).slice(-2));
+            let date = (("00"+nd.getDate().toString()).slice(-2));
+            let hms = nd.toTimeString().split(' ')[0];
+            hms = hms.split(':').join('');
+
+            qrData = "m"+studentId+year+month+date+hms;
+            console.log(qrData);
+            new QRCode(document.getElementById("qrcode"), qrData);
+        });
+    </script>
+    </body>
+</html>
